@@ -103,11 +103,14 @@ from
     [src-iot-hub]
 where counter%2 = 0;
 ```
- 
+![image](https://user-images.githubusercontent.com/64438692/168928924-e99f51a4-e36a-46d9-ad71-ec639fc2a9dc.png)
 
-7.3.	Select Save Query
+    
+     * Select Save Query
 
-Note: If you will notice carefully, we are using Query here to not only sample the data but also extract only the desired attributes from the data stream. So, inbuilt query option with stream analytics is helpful in pre-processing/transforming the data before it gets ingested into the DB.
+> [!NOTE]
+> If you will notice carefully, we are using Query here to not only sample the data but also extract only the desired attributes from the data stream.
+> So, inbuilt query option with stream analytics is helpful in pre-processing/transforming the data before it gets ingested into the DB.
 
 8.	**Start the Stream Analytics Job and Verify Output**
     * Return to the job overview page and select Start.
