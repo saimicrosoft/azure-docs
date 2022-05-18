@@ -1,7 +1,7 @@
 ---
 title: Azure Stream Analytics
 description: Classify workload for scalable application
-ms.author: jonels
+ms.author: saimicrosoft
 author: saimicrosoft
 ms.service: postgresql
 ms.subservice: hyperscale-citus
@@ -38,17 +38,17 @@ Before we begin, it is assumed that you already have Azure IOT Hub provisioned a
    * **Job name** - Name to identify your Stream Analytics job.
    *  **Subscription** - Select the Azure subscription that you want to use for this job.
    *  **Resource group** - Select the same resource group as your IoT Hub.
-   *  **Location** - Select geographic location where you can host your Stream Analytics job. Use the location that's closest to your users for better performance and to reduce the data transfer cost.	
+   *  **Location** - Select geographic location where you can host your Stream Analytics job. Use the location that's closest to your users for better performance and to reduce the data transfer cost.    
    *  **Streaming units** - Streaming units represent the computing resources that are required to execute a job.
    *  **Hosting environment** - Cloud allows you to deploy to Azure Cloud, and Edge allows you to deploy to an IoT Edge device.
 4. Select **Create**. You should see a *Deployment in progress...* notification displayed in the top right of your browser window.
 ![image](https://user-images.githubusercontent.com/64438692/168928180-1267c416-1ffd-421c-8848-2cee16650ca0.png)
 
-5.	**Configure Job Input**
+5.    **Configure Job Input**
     * Once the resource deployment is complete, navigate to your Stream Analytics job. 
     * Select **Inputs** > **Add Stream input** > **IoT Hub**.
     * Fill out the IoT Hub page with the following values:
-    * **Input alias** - Name to identify the job’s input.
+    * **Input alias** - Name to identify the job's input.
     * **Subscription** - Select the Azure subscription that has the IOT Hub account you created.
     * **IoT Hub** – Select the name of the IoT Hub you have already created.
     * Leave other options to default values and select **Save** to save the settings.
@@ -63,25 +63,25 @@ Before we begin, it is assumed that you already have Azure IOT Hub provisioned a
 "PartitionId":3,
 "EventEnqueuedUtcTime":"2022-04-25T13:49:12.1820000Z",
 "IoTHub":{
-		"MessageId":null,	
-		"CorrelationId":"990407b8-4332-4cb6-a8f4-d47f304397d8",
-		"ConnectionDeviceId":"sim000001",
-		"ConnectionDeviceGenerationId":"637842405470327268",
-		"EnqueuedTime":"2022-04-25T13:49:11.7060000Z"
-		}
+        "MessageId":null,    
+        "CorrelationId":"990407b8-4332-4cb6-a8f4-d47f304397d8",
+        "ConnectionDeviceId":"sim000001",
+        "ConnectionDeviceGenerationId":"637842405470327268",
+        "EnqueuedTime":"2022-04-25T13:49:11.7060000Z"
+        }
 }
 ```
 
 ![image](https://user-images.githubusercontent.com/64438692/168928290-57d08b81-aa6d-42bf-bf5e-927ad25a7a1d.png)
 
 
-6.	**Configure Job Output**
-    *	Navigate to the Stream Analytics job that you created earlier.
-    *	Select **Outputs** > **Add** > **Azure PostgreSQL**.
-    *	Fill out the **Azure PostgreSQL** page with the following values:
-    *	**Output alias** - Name to identify the job’s output.
-    *	Select **“Provide PostgreSQL database settings manually”** and enter the DB server connection details like server FQDN, database, table name, username, and password.
-    *	Click on **Save** to save the settings.
+6.    **Configure Job Output**
+    *    Navigate to the Stream Analytics job that you created earlier.
+    *    Select **Outputs** > **Add** > **Azure PostgreSQL**.
+    *    Fill out the **Azure PostgreSQL** page with the following values:
+    *    **Output alias** - Name to identify the job's output.
+    *    Select **"Provide PostgreSQL database settings manually"** and enter the DB server connection details like server FQDN, database, table name, username, and password.
+    *    Click on **Save** to save the settings.
 
  ![image](https://user-images.githubusercontent.com/64438692/168928406-efc633b7-3ebe-46c4-bc59-2a97f294a32c.png)
 
@@ -89,7 +89,7 @@ Before we begin, it is assumed that you already have Azure IOT Hub provisioned a
 > [!NOTE]
 > Test Connection feature for Azure PostgreSQL DB in currently not supported and might throw an error.
 
-7.	**Define Transformation Query**
+7.    **Define Transformation Query**
     * Navigate to the Stream Analytics job that you created earlier.
     * For this tutorial, we would be ingesting only the alternate events from IOT Hub into Hyperscale Citus to reduce the overall dataset.
 ```sql
@@ -112,7 +112,7 @@ where counter%2 = 0;
 > If you will notice carefully, we are using Query here to not only sample the data but also extract only the desired attributes from the data stream.
 > So, inbuilt query option with stream analytics is helpful in pre-processing/transforming the data before it gets ingested into the DB.
 
-8.	**Start the Stream Analytics Job and Verify Output**
+8.    **Start the Stream Analytics Job and Verify Output**
     * Return to the job overview page and select Start.
     * Under Start job, select Now, for the Job output start time field. Then, select Start to start your job.
     * After few minutes, you can login to the Hyperscale Citus server and verify the data loaded. The job will take some time to start at the first time, but once triggered it will continue to run as the data arrives.
